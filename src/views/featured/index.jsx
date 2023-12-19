@@ -4,6 +4,7 @@ import { useDocumentTitle, useFeaturedProducts, useScrollTop } from '@/hooks';
 import bannerImg from '@/images/banner-guy.png';
 import React from 'react';
 
+
 const FeaturedProducts = () => {
   useDocumentTitle('Featured Products | Salinaka');
   useScrollTop();

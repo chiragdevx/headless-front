@@ -1,12 +1,29 @@
-
 import axios from "axios";
 
-export async function apiHelper(endpoint, method, data) {
+export async function apiOmsHelper(endpoint, method, data) {
+  const OMS_BASE_URL = import.meta.env.OMS_BASE_URL;
+  const api = axios.create({
+    baseURL: OMS_BASE_URL || "http://localhost:3001",
+  });
+
+  try {
+    const response = await api({
+      method,
+      url: `${endpoint}`,
+      data,
+      // other axios configurations if needed
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || error.message);
+  }
+}
+
+export async function apiPimHelper(endpoint, method, data) {
   const PIM_BASE_URL = import.meta.env.PIM_BASE_URL;
   const api = axios.create({
-    baseURL: PIM_BASE_URL || 'http://localhost:3001',
+    baseURL: PIM_BASE_URL || "http://localhost:3000",
   });
-  
 
   try {
     const response = await api({
