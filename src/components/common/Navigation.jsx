@@ -76,6 +76,7 @@ const Navigation = () => {
   useEffect(async () => {
     const { data } = await apiPimHelper("categories", "GET");
     setCategoriesData(data);
+    console.log('data', data)
   }, []);
 
   return (
@@ -101,7 +102,7 @@ const Navigation = () => {
             <li key={i}>
               <NavLink
                 activeClassName="navigation-menu-active"
-                to={"/category/" + category.slug}
+                to={"/category/" + category.id}
               >
                 {category.title}
               </NavLink>

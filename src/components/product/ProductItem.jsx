@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom';
 
 const ProductItem = ({ product, isItemOnBasket, addToBasket }) => {
   const history = useHistory();
-
+  console.log('product', product)
   const onClickItem = () => {
     if (!product) return;
 
@@ -39,20 +39,20 @@ const ProductItem = ({ product, isItemOnBasket, addToBasket }) => {
           role="presentation"
         >
           <div className="product-card-img-wrapper">
-            {product.image ? (
+            {product?.images?.length ? (
               <ImageLoader
-                alt={product.name}
+                alt={product.title}
                 className="product-card-img"
-                src={product.image}
+                src={product.images[0].path}
               />
             ) : <Skeleton width="100%" height="90%" />}
           </div>
           <div className="product-details">
             <h5 className="product-card-name text-overflow-ellipsis margin-auto">
-              {product.name || <Skeleton width={80} />}
+              {product.title || <Skeleton width={80} />}
             </h5>
             <p className="product-card-brand">
-              {product.brand || <Skeleton width={60} />}
+              {product.title || <Skeleton width={60} />}
             </p>
             <h4 className="product-card-price">
               {product.price ? displayMoney(product.price) : <Skeleton width={40} />}
