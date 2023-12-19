@@ -36,7 +36,7 @@ const Category = () => {
         <AppliedFilters filteredProductsCount={productsData.length} />
         {/* <ProductList {...store}> */}
           <ProductGrid products={productsData} />
-        {/*</ProductList> */}
+        {/* </ProductList> */}
       </section>
     </main>
   )
