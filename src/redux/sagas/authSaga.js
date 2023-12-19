@@ -22,7 +22,7 @@ import { setAuthenticating, setAuthStatus } from "@/redux/actions/miscActions";
 import { clearProfile, setProfile } from "@/redux/actions/profileActions";
 import { history } from "@/routers/AppRouter";
 import firebase from "@/services/firebase";
-import { apiHelper } from "@/helpers/api";
+import { apiOmsHelper } from "@/helpers/api";
 
 function* handleError(e) {
   const obj = { success: false, type: "auth", isError: true };
@@ -134,7 +134,7 @@ function* authSaga({ type, payload }) {
         //   role: "USER",
         //   dateJoined: ref.user.metadata.creationTime || new Date().getTime(),
         // };
-        const data = yield call(apiHelper, "auth/register", "POST", {
+        const data = yield call(apiOmsHelper, "auth/register", "POST", {
           email,
           password,
         });
