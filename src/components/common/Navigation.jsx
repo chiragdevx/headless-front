@@ -105,7 +105,10 @@ const Navigation = () => {
         {categoriesData.map((category, i) => {
           return (
             <li key={i}>
-              <NavLink activeClassName="navigation-menu-active" to={ROUTE.SHOP}>
+              <NavLink
+                activeClassName="navigation-menu-active"
+                to={"/category/" + category.slug}
+              >
                 {category.title}
               </NavLink>
             </li>
