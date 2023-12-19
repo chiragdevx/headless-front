@@ -1,8 +1,16 @@
-import { FacebookOutlined, GithubFilled, GoogleOutlined } from '@ant-design/icons';
-import PropType from 'prop-types';
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { signInWithFacebook, signInWithGithub, signInWithGoogle } from '@/redux/actions/authActions';
+import {
+  FacebookOutlined,
+  GithubFilled,
+  GoogleOutlined,
+} from "@ant-design/icons";
+import PropType from "prop-types";
+import React from "react";
+import { useDispatch } from "react-redux";
+import {
+  signInWithFacebook,
+  signInWithGithub,
+  signInWithGoogle,
+} from "@/redux/actions/authActions";
 
 const SocialLogin = ({ isLoading }) => {
   const dispatch = useDispatch();
@@ -11,8 +19,33 @@ const SocialLogin = ({ isLoading }) => {
     dispatch(signInWithGoogle());
   };
 
-  const onSignInWithFacebook = () => {
-    dispatch(signInWithFacebook());
+  const handleFacebookLogin = () => {
+    // Use FB.login within this function
+
+    window.FB.login(
+      function (response) {
+        if (response.authResponse) {
+          // User is authenticated
+          // Make any necessary API calls or handle the response here
+          axios
+            .post("http://localhost:3001/auth/facebook/login", {
+              credential: response.authResponse.accessToken,
+            })
+            .then((response) => {
+              // Handle the response from your backend
+              console.log("API response:", response.data);
+            })
+            .catch((error) => {
+              // Handle any errors
+              console.error("API error:", error);
+            });
+        } else {
+          // User canceled the login
+          console.log("User canceled the login");
+        }
+      },
+      { scope: "email, public_profile" }
+    );
   };
 
   const onSignInWithGithub = () => {
@@ -24,7 +57,7 @@ const SocialLogin = ({ isLoading }) => {
       <button
         className="button auth-provider-button provider-facebook"
         disabled={isLoading}
-        onClick={onSignInWithFacebook}
+        onClick={handleFacebookLogin}
         type="button"
       >
         {/* <i className="fab fa-facebook" /> */}
@@ -54,7 +87,7 @@ const SocialLogin = ({ isLoading }) => {
 };
 
 SocialLogin.propTypes = {
-  isLoading: PropType.bool.isRequired
+  isLoading: PropType.bool.isRequired,
 };
 
 export default SocialLogin;
