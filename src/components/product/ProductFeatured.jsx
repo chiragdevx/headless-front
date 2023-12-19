@@ -20,8 +20,8 @@ const ProductFeatured = ({ product }) => {
         role="presentation"
       >
         <div className="product-display-img">
-          {product.image ? (
-            <ImageLoader className="product-card-img" src={product.image} />
+          {product.images ? (
+            <ImageLoader className="product-card-img" src={product.images[0].path} />
           ) : (
             <Skeleton width="100%" height="100%" />
           )}
@@ -29,7 +29,7 @@ const ProductFeatured = ({ product }) => {
         <div className="product-display-details">
           <h2>{product.title || <Skeleton width={80} />}</h2>
           <p className="text-subtle text-italic">
-            {product.description || <Skeleton width={40} />}
+            ${product.price || <Skeleton width={40} />}
           </p>
         </div>
       </div>
