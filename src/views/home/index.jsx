@@ -54,8 +54,6 @@ const Home = () => {
     setCollections(response);
   }, []);
 
-  console.log("collections :>> ", collections);
-
   return (
     <main className="content">
       <div className="home">

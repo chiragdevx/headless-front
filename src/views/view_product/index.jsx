@@ -23,10 +23,9 @@ const ViewProduct = () => {
   useScrollTop();
   useDocumentTitle(`View ${product?.name || 'Item'}`);
 
-  const [selectedImage, setSelectedImage] = useState(product?.image || '');
+  const [selectedImage, setSelectedImage] = useState( '');
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
-
   const {
     recommendedProducts,
     fetchRecommendedProducts,
@@ -36,9 +35,8 @@ const ViewProduct = () => {
   const colorOverlay = useRef(null);
 
   useEffect(() => {
-    setSelectedImage(product?.image);
-  }, [product]);
-
+    setSelectedImage(productData?.images[0].path);
+  }, [productData]);
   const onSelectedSizeChange = (newValue) => {
     setSelectedSize(newValue.value);
   };
@@ -51,7 +49,7 @@ const ViewProduct = () => {
   };
 
   const handleAddToBasket = () => {
-    addToBasket({ ...product, selectedColor, selectedSize: selectedSize || productData.sizes[0] });
+    addToBasket({ ...productData });
   };
 
   useEffect(async() => {

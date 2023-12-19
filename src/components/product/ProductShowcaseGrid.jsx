@@ -5,7 +5,6 @@ import React from 'react';
 
 const ProductShowcase = ({ products, skeletonCount }) => (
   <div className="product-display-grid">
-    {console.log('@@ :>> ', products)}
     {(products.length === 0) ? new Array(skeletonCount).fill({}).map((product, index) => (
       <FeaturedProduct
         // eslint-disable-next-line react/no-array-index-key

@@ -5,7 +5,6 @@ import React, { useState } from 'react';
 const ImageLoader = ({ src, alt, className }) => {
   const loadedImages = {};
   const [loaded, setLoaded] = useState();
-  console.log(' :>> ', );
 
   const onLoad = () => {
     loadedImages[src] = true;

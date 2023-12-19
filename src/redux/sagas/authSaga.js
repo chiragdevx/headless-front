@@ -138,8 +138,6 @@ function* authSaga({ type, payload }) {
           email,
           password,
         });
-        console.log("data :>> ", data);
-        console.log("data :>> ", data);
         yield put(setProfile(user));
         yield put(setAuthenticating(false));
       } catch (e) {
