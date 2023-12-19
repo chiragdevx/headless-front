@@ -1,36 +1,36 @@
-import { ArrowLeftOutlined, LoadingOutlined } from '@ant-design/icons';
-import { ColorChooser, ImageLoader, MessageDisplay } from '@/components/common';
-import { ProductShowcaseGrid } from '@/components/product';
-import { RECOMMENDED_PRODUCTS, SHOP } from '@/constants/routes';
-import { displayMoney } from '@/helpers/utils';
+import { ArrowLeftOutlined, LoadingOutlined } from "@ant-design/icons";
+import { ColorChooser, ImageLoader, MessageDisplay } from "@/components/common";
+import { ProductShowcaseGrid } from "@/components/product";
+import { RECOMMENDED_PRODUCTS, SHOP } from "@/constants/routes";
+import { displayMoney } from "@/helpers/utils";
 import {
   useBasket,
   useDocumentTitle,
   useProduct,
   useRecommendedProducts,
-  useScrollTop
-} from '@/hooks';
-import React, { useEffect, useRef, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import Select from 'react-select';
-import { apiPimHelper } from '../../helpers/api';
+  useScrollTop,
+} from "@/hooks";
+import React, { useEffect, useRef, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import Select from "react-select";
+import { apiPimHelper } from "../../helpers/api";
 
 const ViewProduct = () => {
   const { id } = useParams();
-  const [productData,setProduct]=useState()
+  const [productData, setProduct] = useState();
   const { product, isLoading, error } = useProduct(id);
   const { addToBasket, isItemOnBasket } = useBasket(id);
   useScrollTop();
-  useDocumentTitle(`View ${product?.name || 'Item'}`);
+  useDocumentTitle(`View ${product?.name || "Item"}`);
 
-  const [selectedImage, setSelectedImage] = useState( '');
-  const [selectedSize, setSelectedSize] = useState('');
-  const [selectedColor, setSelectedColor] = useState('');
+  const [selectedImage, setSelectedImage] = useState("");
+  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
   const {
     recommendedProducts,
     fetchRecommendedProducts,
     isLoading: isLoadingFeatured,
-    error: errorFeatured
+    error: errorFeatured,
   } = useRecommendedProducts(6);
   const colorOverlay = useRef(null);
 
@@ -49,14 +49,14 @@ const ViewProduct = () => {
   };
 
   const handleAddToBasket = () => {
-    addToBasket({ ...productData });
+    addToBasket({ ...productData, quantity: 1 });
   };
 
-  useEffect(async() => {
-    const { data } = await apiPimHelper(`product/${id}`, 'GET');
-    setProduct(data)
-    console.log('data', data)
-  }, [])
+  useEffect(async () => {
+    const { data } = await apiPimHelper(`product/${id}`, "GET");
+    setProduct(data);
+    console.log("data", data);
+  }, []);
 
   return (
     <main className="content">
@@ -78,8 +78,7 @@ const ViewProduct = () => {
               &nbsp; Back to shop
             </h3>
           </Link>
-         <div className="product-modal">
-
+          <div className="product-modal">
             {productData.images.length !== 0 && (
               <div className="product-modal-image-collection">
                 {productData.images.map((image) => (
@@ -98,7 +97,14 @@ const ViewProduct = () => {
               </div>
             )}
             <div className="product-modal-image-wrapper">
-              {selectedColor && <input type="color" disabled ref={colorOverlay} id="color-overlay" />}
+              {selectedColor && (
+                <input
+                  type="color"
+                  disabled
+                  ref={colorOverlay}
+                  id="color-overlay"
+                />
+              )}
               <ImageLoader
                 alt={productData.title}
                 className="product-modal-image"
@@ -121,7 +127,9 @@ const ViewProduct = () => {
                 <Select
                   placeholder="--Choose Variant--"
                   onChange={onSelectedSizeChange}
-                  options={productData.variants.map((variant) => ({ label: `${variant.title}`, }))}
+                  options={productData.variants.map((variant) => ({
+                    label: `${variant.title}`,
+                  }))}
                   styles={{ menu: (provided) => ({ ...provided, zIndex: 10 }) }}
                 />
               </div>
@@ -140,16 +148,22 @@ const ViewProduct = () => {
               <h1>{displayMoney(productData.price)}</h1>
               <div className="product-modal-action">
                 <button
-                  className={`button button-small ${isItemOnBasket(productData.id) ? 'button-border button-border-gray' : ''}`}
+                  className={`button button-small ${
+                    isItemOnBasket(productData.id)
+                      ? "button-border button-border-gray"
+                      : ""
+                  }`}
                   onClick={handleAddToBasket}
                   type="button"
                 >
-                  {isItemOnBasket(productData.id) ? 'Remove From Basket' : 'Add To Basket'}
+                  {isItemOnBasket(productData.id)
+                    ? "Remove From Basket"
+                    : "Add To Basket"}
                 </button>
               </div>
             </div>
           </div>
-          <div style={{ marginTop: '10rem' }}>
+          <div style={{ marginTop: "10rem" }}>
             <div className="display-header">
               <h1>Recommended</h1>
               <Link to={RECOMMENDED_PRODUCTS}>See All</Link>
@@ -161,7 +175,10 @@ const ViewProduct = () => {
                 buttonLabel="Try Again"
               />
             ) : (
-              <ProductShowcaseGrid products={recommendedProducts} skeletonCount={3} />
+              <ProductShowcaseGrid
+                products={recommendedProducts}
+                skeletonCount={3}
+              />
             )}
           </div>
         </div>
