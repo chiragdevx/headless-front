@@ -72,13 +72,7 @@ const Navigation = () => {
     );
   }
 
-  // const categoryData = axios.get(import.meta.env.BPIM_BASE_URL + "api/categories").then((response) => {
-  //   const url = import.meta.env.BPIM_BASE_URL
-  //   console.log(url)
-  //   console.log("Aman")
-  //   console.log(response);
-  // })
-
+  // Fetching Data from the backend
   useEffect(async () => {
     const { data } = await apiPimHelper("categories", "GET");
     setCategoriesData(data);
