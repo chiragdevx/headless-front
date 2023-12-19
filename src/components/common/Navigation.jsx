@@ -74,18 +74,10 @@ const Navigation = () => {
     );
   }
 
-  // const categoryData = axios.get(import.meta.env.BPIM_BASE_URL + "api/categories").then((response) => {
-  //   const url = import.meta.env.BPIM_BASE_URL
-  //   console.log(url)
-  //   console.log("Aman")
-  //   console.log(response);
-  // })
-
   useEffect(async() => {
     const {data} = await apiHelper("categories", "GET")
     console.log('data ', data )
     setCategoriesData(data)
-    // console.log(categoryData)
     console.log(categoriesData)
   }, [])
 // console.log('categoryData', categoriesData)  
@@ -100,7 +92,7 @@ const Navigation = () => {
         {/* <li><NavLink activeClassName="navigation-menu-active" to={ROUTE.SHOP}>Shop</NavLink></li> */}
         {categoriesData.map((category,i) => {
           return (
-             <li key={i}><NavLink activeClassName="navigation-menu-active" to={ROUTE.SHOP}>{category.title}</NavLink></li>
+             <li key={i}><NavLink activeClassName="navigation-menu-active" to={"/category/" + category.slug}>{category.title}</NavLink></li>
           )
         })}
         <li><NavLink activeClassName="navigation-menu-active" to={ROUTE.FEATURED_PRODUCTS}>Featured</NavLink></li>
