@@ -13,10 +13,17 @@ import Badge from './Badge';
 import FiltersToggle from './FiltersToggle';
 import MobileNavigation from './MobileNavigation';
 import SearchBar from './SearchBar';
+import axios from 'axios';
+import { apiHelper } from "../../helpers/api"
+import { useState } from 'react';
+
 
 const Navigation = () => {
   const navbar = useRef(null);
   const { pathname } = useLocation();
+
+  // Category Data
+  const [categoriesData, setCategoriesData] = useState([]);
 
   const store = useSelector((state) => ({
     basketLength: state.basket.length,
@@ -66,14 +73,36 @@ const Navigation = () => {
       />
     );
   }
+
+  // const categoryData = axios.get(import.meta.env.BPIM_BASE_URL + "api/categories").then((response) => {
+  //   const url = import.meta.env.BPIM_BASE_URL
+  //   console.log(url)
+  //   console.log("Aman")
+  //   console.log(response);
+  // })
+
+  useEffect(async() => {
+    const {data} = await apiHelper("categories", "GET")
+    console.log('data ', data )
+    setCategoriesData(data)
+    // console.log(categoryData)
+    console.log(categoriesData)
+  }, [])
+// console.log('categoryData', categoriesData)  
+
   return (
     <nav className="navigation" ref={navbar}>
       <div className="logo">
         <Link onClick={onClickLink} to="/"><img alt="Logo" src={logo} /></Link>
-      </div>
+      </div> 
       <ul className="navigation-menu-main">
         <li><NavLink activeClassName="navigation-menu-active" exact to={ROUTE.HOME}>Home</NavLink></li>
-        <li><NavLink activeClassName="navigation-menu-active" to={ROUTE.SHOP}>Shop</NavLink></li>
+        {/* <li><NavLink activeClassName="navigation-menu-active" to={ROUTE.SHOP}>Shop</NavLink></li> */}
+        {categoriesData.map((category,i) => {
+          return (
+             <li key={i}><NavLink activeClassName="navigation-menu-active" to={ROUTE.SHOP}>{category.title}</NavLink></li>
+          )
+        })}
         <li><NavLink activeClassName="navigation-menu-active" to={ROUTE.FEATURED_PRODUCTS}>Featured</NavLink></li>
         <li><NavLink activeClassName="navigation-menu-active" to={ROUTE.RECOMMENDED_PRODUCTS}>Recommended</NavLink></li>
       </ul>
