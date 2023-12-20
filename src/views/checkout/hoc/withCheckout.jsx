@@ -7,21 +7,21 @@ import { Redirect, withRouter } from 'react-router-dom';
 
 const withCheckout = (Component) => withRouter((props) => {
   const state = useSelector((store) => ({
-    isAuth: !!store.auth.id && !!store.auth.role,
+    // isAuth: !!store.auth.id && !!store.auth.role,
     basket: store.basket,
     shipping: store.checkout.shipping,
     payment: store.checkout.payment,
     profile: store.profile
   }));
-
   const shippingFee = state.shipping.isInternational ? 50 : 0;
   const subtotal = calculateTotal(state.basket.map((product) => product.price * product.quantity));
 
-  if (!state.isAuth) {
-    return <Redirect to={SIGNIN} />;
-  } if (state.basket.length === 0) {
+  // if (!state.isAuth) {
+  //   return <Redirect to={SIGNIN} />;
+  // }
+  if (state.basket.length === 0) {
     return <Redirect to="/" />;
-  } if (state.isAuth && state.basket.length !== 0) {
+  } if ( state.basket.length !== 0) {
     return (
       <Component
         // eslint-disable-next-line react/jsx-props-no-spreading

@@ -11,7 +11,6 @@ const Category = () => {
   const {id} = useParams()
   useEffect(async () => {
     const {data} = await apiPimHelper(`category/${id}/products`)
-    console.log('data', data)
     setProductsData(data)
   }, [id])
 

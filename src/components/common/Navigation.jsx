@@ -76,7 +76,6 @@ const Navigation = () => {
   useEffect(async () => {
     const { data } = await apiPimHelper("categories", "GET");
     setCategoriesData(data);
-    console.log('data', data)
   }, []);
 
   return (
@@ -85,6 +84,7 @@ const Navigation = () => {
         <Link onClick={onClickLink} to="/">
           {/* <img alt="Logo" src={logo} /> */}
         </Link>
+      
       </div>
       <ul className="navigation-menu-main">
         <li>

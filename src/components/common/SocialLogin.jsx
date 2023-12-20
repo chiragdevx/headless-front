@@ -11,6 +11,8 @@ import {
   signInWithGithub,
   signInWithGoogle,
 } from "@/redux/actions/authActions";
+import Google from "../../services/Google";
+import Facebook from "../../services/Facebook";
 
 const SocialLogin = ({ isLoading }) => {
   const dispatch = useDispatch();
@@ -72,6 +74,8 @@ const SocialLogin = ({ isLoading }) => {
       >
         <GoogleOutlined />
         Continue with Google
+        <Google></Google>
+        <Facebook></Facebook>
       </button>
       <button
         className="button auth-provider-button provider-github"
