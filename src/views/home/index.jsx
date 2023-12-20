@@ -12,7 +12,8 @@ import {
   useRecommendedProducts,
   useScrollTop,
 } from "@/hooks";
-import bannerImg from "@/images/banner-girl.png";
+// import bannerImg from "@/images/banner-girl.png";
+import squareYou from "@/images/square.jpg"
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { apiPimHelper } from "@/helpers/api";
@@ -60,15 +61,15 @@ const Home = () => {
         <div className="banner">
           <div className="banner-desc">
             <h1 className="text-thin">
-              <strong>See</strong>
-              &nbsp;everything with&nbsp;
-              <strong>Clarity</strong>
+              <strong>HEADLESS</strong>
+              {/* &nbsp;everything with&nbsp; */}
+              {/* <strong>Clarity</strong> */}
             </h1>
-            <p>
+            {/* <p>
               Buying eyewear should leave you happy and good-looking, with money
               in your pocket. Glasses, sunglasses, and contacts—we’ve got your
               eyes covered.
-            </p>
+            </p> */}
             <br />
             <Link to={SHOP} className="button">
               Shop Now &nbsp;
@@ -76,7 +77,8 @@ const Home = () => {
             </Link>
           </div>
           <div className="banner-img">
-            <img src={bannerImg} alt="" />
+            {/* <img src={bannerImg} alt="" /> */}
+            <img src={squareYou} alt="" />
           </div>
         </div>
         {collections.map((collection) => (

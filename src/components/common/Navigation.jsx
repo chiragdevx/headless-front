@@ -83,7 +83,7 @@ const Navigation = () => {
     <nav className="navigation" ref={navbar}>
       <div className="logo">
         <Link onClick={onClickLink} to="/">
-          <img alt="Logo" src={logo} />
+          {/* <img alt="Logo" src={logo} /> */}
         </Link>
       </div>
       <ul className="navigation-menu-main">
