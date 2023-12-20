@@ -12,8 +12,8 @@ import {
   useRecommendedProducts,
   useScrollTop,
 } from "@/hooks";
-// import bannerImg from "@/images/banner-girl.png";
-import squareYou from "@/images/square.jpg"
+import bannerImg from "@/images/banner-girl.png";
+// import squareYou from "@/images/square.jpg"
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { apiPimHelper } from "@/helpers/api";
@@ -77,8 +77,8 @@ const Home = () => {
             </Link>
           </div>
           <div className="banner-img">
-            {/* <img src={bannerImg} alt="" /> */}
-            <img src={squareYou} alt="" />
+            <img src={bannerImg} alt="" />
+            {/* <img src={squareYou} alt="" /> */}
           </div>
         </div>
         {collections.map((collection) => (
