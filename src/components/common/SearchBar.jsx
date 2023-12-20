@@ -4,9 +4,13 @@ import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { clearRecentSearch, removeSelectedRecent } from '@/redux/actions/filterActions';
+import { apiPimHelper } from '@/helpers/api';
 
 const SearchBar = () => {
   const [searchInput, setSearchInput] = useState('');
+  const [searchText, setSearchText] = useState('');
+  const [searchData, setSearchData] = useState([]);
+  const [isSearched, setIsSearched] = useState(false)
   const { filter, isLoading } = useSelector((state) => ({
     filter: state.filter,
     isLoading: state.app.loading
@@ -20,9 +24,10 @@ const SearchBar = () => {
   const onSearchChange = (e) => {
     const val = e.target.value.trimStart();
     setSearchInput(val);
+    setSearchText(e.target.value)
   };
 
-  const onKeyUp = (e) => {
+  const onKeyUp = async(e) => {
     if (e.keyCode === 13) {
       // dispatch(setTextFilter(searchInput));
       e.target.blur();
@@ -33,6 +38,11 @@ const SearchBar = () => {
       }
 
       history.push(`/search/${searchInput.trim().toLowerCase()}`);
+
+      const {data} = await apiPimHelper(`products?searchFields=title:${searchText}`)
+      console.log('data', data)
+      setSearchData(data);
+      setIsSearched(true)
     }
   };
 
@@ -42,6 +52,7 @@ const SearchBar = () => {
     if (!searchBar) {
       searchbarRef.current.classList.remove('is-open-recent-search');
       document.removeEventListener('click', recentSearchClickHandler);
+      // setSearchData([])
     }
   };
 
@@ -63,7 +74,7 @@ const SearchBar = () => {
   const onClearRecent = () => {
     dispatch(clearRecentSearch());
   };
-
+  
   return (
     <>
       <div className="searchbar" ref={searchbarRef}>
@@ -76,7 +87,7 @@ const SearchBar = () => {
           placeholder="Search product..."
           readOnly={isLoading}
           type="text"
-          value={searchInput}
+          value={searchText}
         />
         {filter.recent.length !== 0 && (
           <div className="searchbar-recent">
@@ -90,7 +101,7 @@ const SearchBar = () => {
                 Clear
               </h5>
             </div>
-            {filter.recent.map((item, index) => (
+            {/* {filter.recent.map((item, index) => (
               <div
                 className="searchbar-recent-wrapper"
                 key={`search-${item}-${index}`}
@@ -110,7 +121,18 @@ const SearchBar = () => {
                   X
                 </span>
               </div>
-            ))}
+            ))} */}
+            @@@
+            {isSearched && (
+               <main className="content">
+               <section className="product-list-wrapper">
+                 <AppliedFilters filteredProductsCount={searchData.length} />
+                   <ProductGrid products={searchData} />
+                 {/* <ProductList {...store}> */}
+                 {/* </ProductList> */}
+               </section>
+             </main>
+            )}
           </div>
         )}
       </div>

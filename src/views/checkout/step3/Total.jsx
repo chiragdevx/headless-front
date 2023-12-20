@@ -48,7 +48,7 @@ const Total = ({ isInternational, subtotal }) => {
         >
           <CheckOutlined />
           &nbsp;
-          Confirm
+          Order Now
         </button>
       </div>
     </>

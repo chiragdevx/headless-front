@@ -4,12 +4,16 @@ import { Boundary, MessageDisplay } from '@/components/common';
 import { ProductGrid } from '@/components/product';
 import { useDidMount } from '@/hooks';
 import PropType from 'prop-types';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setRequestStatus } from '@/redux/actions/miscActions';
 import { searchProduct } from '@/redux/actions/productActions';
+import { apiPimHelper } from '@/helpers/api';
 
 const Search = ({ match }) => {
+  
+  const [searchData, setSearchData] = useState([]);
+
   const { searchKey } = match.params;
   const dispatch = useDispatch();
   const didMount = useDidMount(true);
@@ -29,6 +33,12 @@ const Search = ({ match }) => {
   useEffect(() => () => {
     dispatch(setRequestStatus(''));
   }, []);
+
+  useEffect(async() => {
+    const {data} = await apiPimHelper(`products?searchFields=title:${searchKey}`, "GET");
+    console.log('data', data)
+    setSearchData(data);
+  }, [])
 
   if (store.requestStatus && !store.isLoading) {
     return (
@@ -50,12 +60,12 @@ const Search = ({ match }) => {
               <div className="product-list-header">
                 <div className="product-list-header-title">
                   <h5>
-                    {`Found ${store.products.length} ${store.products.length > 1 ? 'products' : 'product'} with keyword ${searchKey}`}
+                    {`Found ${searchData.length} ${searchData.length > 1 ? 'products' : 'product'} with keyword ${searchKey}`}
                   </h5>
                 </div>
               </div>
             )}
-            <ProductGrid products={store.products} />
+            <ProductGrid products={searchData} />
           </section>
         </main>
       </Boundary>

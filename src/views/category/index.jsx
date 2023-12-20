@@ -29,17 +29,9 @@ const Category = () => {
   return (
     <main className="content">
       <section className="product-list-wrapper">
-        {/* {productsData.map((product) => {
-          return (
-            <ProductItem
-              key={product.id}
-              product={product}
-            />
-          )
-        })} */}
         <AppliedFilters filteredProductsCount={productsData.length} />
+          <ProductGrid products={productsData} />
         {/* <ProductList {...store}> */}
-        <ProductGrid products={productsData} />
         {/* </ProductList> */}
       </section>
     </main>

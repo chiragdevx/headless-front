@@ -10,6 +10,7 @@ import { StepTracker } from "../components";
 import withCheckout from "../hoc/withCheckout";
 import CreditPayment from "./CreditPayment";
 import PayPalPayment from "./PayPalPayment";
+import Subscription from "./Subscription";
 import Total from "./Total";
 import StripePayment from "./StripePayment";
 import { useSelector } from "react-redux";
@@ -106,6 +107,7 @@ const Payment = ({ shipping, payment, subtotal }) => {
             {/* <CreditPayment /> */}
             <PayPalPayment />
             <StripePayment />
+            <Subscription shipping={shipping}/>
             <Total
               isInternational={shipping.isInternational}
               subtotal={subtotal}

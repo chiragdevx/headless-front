@@ -82,7 +82,12 @@ const Navigation = () => {
 
   return (
     <nav className="navigation" ref={navbar}>
-      <div className="logo"></div>
+      <div className="logo">
+        <Link onClick={onClickLink} to="/">
+          {/* <img alt="Logo" src={logo} /> */}
+        </Link>
+      
+      </div>
       <ul className="navigation-menu-main">
         <li>
           <NavLink
