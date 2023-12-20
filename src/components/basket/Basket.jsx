@@ -35,7 +35,7 @@ const Basket = () => {
   }, [basket.length]);
 
   const onCheckOut = () => {
-    if (basket.length !== 0 && user) {
+    if (basket.length !== 0) {
       document.body.classList.remove("is-basket-open");
       history.push(CHECKOUT_STEP_1);
     } else {
