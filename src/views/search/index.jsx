@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setRequestStatus } from '@/redux/actions/miscActions';
 import { searchProduct } from '@/redux/actions/productActions';
 import { apiPimHelper } from '@/helpers/api';
+import { AppliedFilters } from '@/components/product';
 
 const Search = ({ match }) => {
   
@@ -24,21 +25,21 @@ const Search = ({ match }) => {
     requestStatus: state.app.requestStatus
   }));
 
-  useEffect(() => {
-    if (didMount && !store.isLoading) {
-      dispatch(searchProduct(searchKey));
-    }
-  }, [searchKey]);
+  // useEffect(() => {
+  //   if (didMount && !store.isLoading) {
+  //     dispatch(searchProduct(searchKey));
+  //   }
+  // }, [searchKey]);
 
-  useEffect(() => () => {
-    dispatch(setRequestStatus(''));
-  }, []);
+  // useEffect(() => () => {
+  //   dispatch(setRequestStatus(''));
+  // }, []);
 
   useEffect(async() => {
     const {data} = await apiPimHelper(`products?searchFields=title:${searchKey}`, "GET");
     console.log('data', data)
     setSearchData(data);
-  }, [])
+  }, [searchKey])
 
   if (store.requestStatus && !store.isLoading) {
     return (
@@ -65,6 +66,7 @@ const Search = ({ match }) => {
                 </div>
               </div>
             )}
+            <AppliedFilters filteredProductsCount={searchData.length}/>
             <ProductGrid products={searchData} />
           </section>
         </main>

@@ -71,10 +71,10 @@ const Home = () => {
               eyes covered.
             </p> */}
             <br />
-            <Link to={SHOP} className="button">
+            {/* <Link to={SHOP} className="button">
               Shop Now &nbsp;
               <ArrowRightOutlined />
-            </Link>
+            </Link> */}
           </div>
           <div className="banner-img">
             <img src={bannerImg} alt="" />
