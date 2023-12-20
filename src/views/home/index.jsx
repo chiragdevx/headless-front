@@ -38,21 +38,26 @@ const Home = () => {
   } = useRecommendedProducts(6);
 
   useEffect(async () => {
-    const { data } = await apiPimHelper("collections", "GET");
+    const {
+      data: { data },
+    } = await apiPimHelper("collections", "GET");
     const response = await Promise.all(
       data.map(async (c) => {
-        const { data: res } = await apiPimHelper(
-          `collection/${c.id}/products`,
-          "GET"
-        );
-        return {
-          ...c,
-          products: res,
-        };
+        try {
+          const {
+            data: { data: res },
+          } = await apiPimHelper(`collection/${c.id}/products`, "GET");
+          return {
+            ...c,
+            products: res,
+          };
+        } catch (e) {
+          console.log("e :>> ", e);
+        }
       })
     );
 
-    setCollections(response);
+    setCollections(response.filter(Boolean));
   }, []);
 
   return (
