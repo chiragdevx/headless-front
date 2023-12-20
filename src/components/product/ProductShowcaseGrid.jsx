@@ -11,7 +11,7 @@ const ProductShowcase = ({ products, skeletonCount }) => (
         key={`product-skeleton ${index}`}
         product={product}
       />
-    )) : products.map((product) => (
+    )) : products?.map((product) => (
       <FeaturedProduct
         key={product.id}
         product={product}

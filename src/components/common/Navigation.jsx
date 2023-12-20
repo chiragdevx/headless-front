@@ -74,15 +74,15 @@ const Navigation = () => {
 
   // Fetching Data from the backend
   useEffect(async () => {
-    const { data } = await apiPimHelper("categories", "GET");
-    setCategoriesData(data);
+    const {
+      data: { data: res },
+    } = await apiPimHelper("categories", "GET");
+    setCategoriesData(res);
   }, []);
 
   return (
     <nav className="navigation" ref={navbar}>
-      <div className="logo">
-      
-      </div>
+      <div className="logo"></div>
       <ul className="navigation-menu-main">
         <li>
           <NavLink
@@ -106,22 +106,6 @@ const Navigation = () => {
             </li>
           );
         })}
-        <li>
-          <NavLink
-            activeClassName="navigation-menu-active"
-            to={ROUTE.FEATURED_PRODUCTS}
-          >
-            Featured
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            activeClassName="navigation-menu-active"
-            to={ROUTE.RECOMMENDED_PRODUCTS}
-          >
-            Recommended
-          </NavLink>
-        </li>
       </ul>
       {(pathname === ROUTE.SHOP || pathname === ROUTE.SEARCH) && (
         <FiltersToggle>
