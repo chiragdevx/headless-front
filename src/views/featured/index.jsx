@@ -6,7 +6,7 @@ import { apiPimHelper } from "@/helpers/api";
 import React, { useEffect, useState } from "react";
 
 const FeaturedProducts = () => {
-  useDocumentTitle("Featured Products | Salinaka");
+  useDocumentTitle("Featured Products Headless");
   useScrollTop();
 
   const { featuredProducts, fetchFeaturedProducts, isLoading, error } =

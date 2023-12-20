@@ -49,14 +49,14 @@ function Google() {
 
   return (
     <div className="login-container">
-      <div>
+      {/* <div>
+      </div> */}
         <div id="signInDiv"></div>
-      </div>
-      <div>
-        <div id="signOutDiv" onClick={googleLogout}>
+      {/* <div>
+      </div> */}
+        {/* <div id="signOutDiv" onClick={googleLogout}>
           Logout
-        </div>
-      </div>
+        </div> */}
     </div>
   );
 }

@@ -21,7 +21,7 @@ import { apiPimHelper } from "@/helpers/api";
 const Home = () => {
   const [collections, setCollections] = useState([]);
 
-  useDocumentTitle("Salinaka | Home");
+  useDocumentTitle("Headless");
   useScrollTop();
 
   const {
